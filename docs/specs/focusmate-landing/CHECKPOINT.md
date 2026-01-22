@@ -6,9 +6,10 @@ Last updated: 2026-01-22
 - T0.1 scaffold files created (index/styles/app)
 - T1.1 waitlist storage + dedupe (localStorage → sessionStorage fallback)
 - T1.2 email validation heuristics (“obviously fake” blocking)
+- T1.3 inline status messaging with icon + success/warn/error styles
 
 ## Current / Next
-- Next task: T1.3 Implement inline status messaging with icon
+- Next task: T2.1 Implement fixed navbar + smooth scrolling with offset and reduced-motion support
 - Status: READY
 
 ## Important constraints
@@ -18,9 +19,9 @@ Last updated: 2026-01-22
 
 ## Gotchas / Risks discovered
 - Two waitlist forms exist (`#waitlist-form-hero` and `#waitlist-form`) and should share the same submit handler.
-- HTML has `.waitlist__icon` placeholders; T1.3 should set icon + status styling without changing the flow logic.
+- Waitlist messages use state classes (`.waitlist__message--success|--warn|--error`) and a single icon character.
 
 ## Safe resume instructions
 - Stay on branch `impl/focusmate-landing`.
-- Implement T1.1 in `app.js` and wire to both forms.
-- Verify by submitting emails and inspecting storage via browser devtools.
+- Implement T2.1 in `index.html`/`styles.css`/`app.js` (as needed) without breaking anchor ids.
+- Verify nav clicks/CTA scroll offsets and `prefers-reduced-motion` behavior manually in a browser.
