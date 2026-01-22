@@ -133,6 +133,77 @@ function isObviouslyFakeEmail(normalizedEmail) {
   return false;
 }
 
+function prefersReducedMotion() {
+  return window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
+function initInPageNavigation() {
+  const header = document.querySelector(".site-header");
+  if (!header) return;
+
+  const root = document.documentElement;
+  const extraOffset = 12;
+
+  const getHeaderHeight = () => Math.ceil(header.getBoundingClientRect().height);
+
+  const updateNavHeight = () => {
+    root.style.setProperty("--nav-height", `${getHeaderHeight()}px`);
+  };
+
+  updateNavHeight();
+
+  window.addEventListener(
+    "resize",
+    () => {
+      window.requestAnimationFrame(updateNavHeight);
+    },
+    { passive: true },
+  );
+
+  const scrollToTarget = (target, behavior) => {
+    const headerHeight = getHeaderHeight();
+    const targetTop = target.getBoundingClientRect().top + window.scrollY;
+    const top = Math.max(0, targetTop - headerHeight - extraOffset);
+    window.scrollTo({ top, behavior });
+  };
+
+  document.addEventListener("click", (event) => {
+    if (event.defaultPrevented) return;
+    if (event.button !== 0) return;
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+
+    const link = event.target.closest('a[href^="#"]');
+    if (!link) return;
+    if (link.classList.contains("skip-link")) return;
+
+    const href = link.getAttribute("href");
+    if (!href || href === "#" || href === "#0") return;
+
+    const target = document.querySelector(href);
+    if (!target) return;
+
+    event.preventDefault();
+
+    const behavior = prefersReducedMotion() ? "auto" : "smooth";
+    scrollToTarget(target, behavior);
+
+    if (history.pushState) {
+      history.pushState(null, "", href);
+    } else {
+      window.location.hash = href;
+    }
+  });
+
+  if (window.location.hash && window.location.hash !== "#") {
+    const target = document.querySelector(window.location.hash);
+    if (target) {
+      window.requestAnimationFrame(() => {
+        window.requestAnimationFrame(() => scrollToTarget(target, "auto"));
+      });
+    }
+  }
+}
+
 function wireWaitlistForm(form) {
   const emailInput = form.querySelector('input[name="email"]');
   const messageElId = form.getAttribute("id") === "waitlist-form-hero" ? "waitlist-message-hero" : "waitlist-message";
@@ -190,6 +261,8 @@ function wireWaitlistForm(form) {
 }
 
 function init() {
+  initInPageNavigation();
+
   const forms = document.querySelectorAll("#waitlist-form, #waitlist-form-hero");
   forms.forEach((form) => wireWaitlistForm(form));
 }

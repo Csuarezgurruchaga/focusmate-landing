@@ -7,9 +7,10 @@ Last updated: 2026-01-22
 - T1.1 waitlist storage + dedupe (localStorage → sessionStorage fallback)
 - T1.2 email validation heuristics (“obviously fake” blocking)
 - T1.3 inline status messaging with icon + success/warn/error styles
+- T2.1 fixed navbar + smooth scrolling with offset and reduced-motion support
 
 ## Current / Next
-- Next task: T2.1 Implement fixed navbar + smooth scrolling with offset and reduced-motion support
+- Next task: T2.2 Implement FAQ accordion (4 items), single-open, all closed by default
 - Status: READY
 
 ## Important constraints
