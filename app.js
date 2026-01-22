@@ -70,6 +70,27 @@ function setWaitlistMessage(messageEl, text) {
   if (textEl) textEl.textContent = text;
 }
 
+function isObviouslyFakeEmail(normalizedEmail) {
+  const blocked = new Set(["a@a", "test@test", "email@email"]);
+  if (blocked.has(normalizedEmail)) return true;
+
+  const parts = normalizedEmail.split("@");
+  if (parts.length !== 2) return true;
+
+  const [localPart, domainPart] = parts;
+  if (localPart.length < 2) return true;
+  if (domainPart.length < 3) return true;
+  if (!domainPart.includes(".")) return true;
+
+  const lastDotIndex = domainPart.lastIndexOf(".");
+  if (lastDotIndex <= 0) return true;
+
+  const tld = domainPart.slice(lastDotIndex + 1);
+  if (tld.length < 2) return true;
+
+  return false;
+}
+
 function wireWaitlistForm(form) {
   const emailInput = form.querySelector('input[name="email"]');
   const messageElId = form.getAttribute("id") === "waitlist-form-hero" ? "waitlist-message-hero" : "waitlist-message";
@@ -80,12 +101,19 @@ function wireWaitlistForm(form) {
   form.addEventListener("submit", (event) => {
     event.preventDefault();
 
+    const normalizedEmail = normalizeEmail(emailInput.value);
+
     if (!emailInput.checkValidity()) {
-      setWaitlistMessage(messageEl, "Please enter a valid email address.");
+      setWaitlistMessage(messageEl, "Please enter a valid email address (e.g., you@domain.com).");
       return;
     }
 
-    const result = addEmailToWaitlist(emailInput.value);
+    if (isObviouslyFakeEmail(normalizedEmail)) {
+      setWaitlistMessage(messageEl, "Please enter a real email address (e.g., you@domain.com).");
+      return;
+    }
+
+    const result = addEmailToWaitlist(normalizedEmail);
 
     if (result.kind === "added") {
       setWaitlistMessage(messageEl, "You're in! We'll email you when early access opens.");
