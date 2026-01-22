@@ -188,6 +188,119 @@ function initAccordion() {
   });
 }
 
+function getFocusableElements(container) {
+  const selector = [
+    'a[href]:not([tabindex="-1"])',
+    'button:not([disabled]):not([tabindex="-1"])',
+    'input:not([disabled]):not([type="hidden"]):not([tabindex="-1"])',
+    'select:not([disabled]):not([tabindex="-1"])',
+    'textarea:not([disabled]):not([tabindex="-1"])',
+    '[tabindex]:not([tabindex="-1"])',
+  ].join(",");
+
+  return Array.from(container.querySelectorAll(selector)).filter((el) => {
+    if (!(el instanceof HTMLElement)) return false;
+    if (el.hidden) return false;
+    return true;
+  });
+}
+
+function initModals() {
+  const triggers = Array.from(document.querySelectorAll("[data-modal-open]"));
+  if (triggers.length === 0) return;
+
+  let activeModal = null;
+  let lastActiveEl = null;
+
+  const openModal = (modal, trigger) => {
+    if (!modal) return;
+
+    if (activeModal && activeModal !== modal) {
+      closeModal();
+    }
+
+    lastActiveEl = trigger instanceof HTMLElement ? trigger : document.activeElement;
+    activeModal = modal;
+
+    modal.hidden = false;
+    document.documentElement.classList.add("is-modal-open");
+    document.body.classList.add("is-modal-open");
+
+    const panel = modal.querySelector(".modal__panel") || modal;
+    const focusables = getFocusableElements(panel);
+    const firstFocusable = focusables[0] || panel;
+    if (firstFocusable instanceof HTMLElement) firstFocusable.focus();
+  };
+
+  const closeModal = () => {
+    if (!activeModal) return;
+
+    activeModal.hidden = true;
+    document.documentElement.classList.remove("is-modal-open");
+    document.body.classList.remove("is-modal-open");
+
+    const toRestore = lastActiveEl;
+    activeModal = null;
+    lastActiveEl = null;
+
+    if (toRestore instanceof HTMLElement) {
+      toRestore.focus();
+    }
+  };
+
+  document.addEventListener("click", (event) => {
+    const trigger = event.target.closest("[data-modal-open]");
+    if (trigger) {
+      const name = trigger.getAttribute("data-modal-open");
+      const modal = document.querySelector(`[data-modal="${name}"]`);
+      if (!modal) return;
+      openModal(modal, trigger);
+      return;
+    }
+
+    const closeTarget = event.target.closest("[data-modal-close]");
+    if (closeTarget && activeModal && activeModal.contains(closeTarget)) {
+      closeModal();
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (!activeModal) return;
+
+    if (event.key === "Escape") {
+      event.preventDefault();
+      closeModal();
+      return;
+    }
+
+    if (event.key !== "Tab") return;
+
+    const panel = activeModal.querySelector(".modal__panel") || activeModal;
+    const focusables = getFocusableElements(panel);
+    if (focusables.length === 0) {
+      event.preventDefault();
+      return;
+    }
+
+    const first = focusables[0];
+    const last = focusables[focusables.length - 1];
+    const active = document.activeElement;
+
+    if (event.shiftKey) {
+      if (active === first || !panel.contains(active)) {
+        event.preventDefault();
+        last.focus();
+      }
+      return;
+    }
+
+    if (active === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  });
+}
+
 function initInPageNavigation() {
   const header = document.querySelector(".site-header");
   if (!header) return;
@@ -314,6 +427,7 @@ function wireWaitlistForm(form) {
 function init() {
   initInPageNavigation();
   initAccordion();
+  initModals();
 
   const forms = document.querySelectorAll("#waitlist-form, #waitlist-form-hero");
   forms.forEach((form) => wireWaitlistForm(form));

@@ -247,11 +247,60 @@
       <div class="container footer">
         <p class="footer__brand">FocusMate</p>
         <div class="footer__links">
-          <button class="footer__link" type="button" data-modal-open="privacy">Privacy</button>
-          <button class="footer__link" type="button" data-modal-open="terms">Terms</button>
+          <button
+            class="footer__link"
+            type="button"
+            data-modal-open="privacy"
+            aria-haspopup="dialog"
+            aria-controls="modal-privacy"
+          >
+            Privacy
+          </button>
+          <button class="footer__link" type="button" data-modal-open="terms" aria-haspopup="dialog" aria-controls="modal-terms">
+            Terms
+          </button>
           <a class="footer__link" href="mailto:hello@focusmate.app">Contact</a>
         </div>
       </div>
     </footer>
+
+    <div class="modal" id="modal-privacy" data-modal="privacy" role="dialog" aria-modal="true" aria-labelledby="modal-privacy-title" hidden>
+      <div class="modal__backdrop" data-modal-close aria-hidden="true"></div>
+      <div class="modal__panel" role="document">
+        <header class="modal__header">
+          <h2 class="modal__title" id="modal-privacy-title">Privacy (Demo)</h2>
+          <button class="modal__close" type="button" data-modal-close>Close</button>
+        </header>
+        <div class="modal__content">
+          <p class="modal__lead">
+            FocusMate is a fictitious product used for a demo. If you join the waitlist, your email is stored only in this browser.
+          </p>
+          <ul class="modal__list">
+            <li>We store the email you submit in <code>localStorage</code> (or <code>sessionStorage</code> if needed).</li>
+            <li>We do not send your email anywhere (no backend, no mailing).</li>
+            <li>No analytics or tracking pixels are required for this demo.</li>
+            <li>To remove your email, clear site data for this page in your browser settings.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal" id="modal-terms" data-modal="terms" role="dialog" aria-modal="true" aria-labelledby="modal-terms-title" hidden>
+      <div class="modal__backdrop" data-modal-close aria-hidden="true"></div>
+      <div class="modal__panel" role="document">
+        <header class="modal__header">
+          <h2 class="modal__title" id="modal-terms-title">Terms (Demo)</h2>
+          <button class="modal__close" type="button" data-modal-close>Close</button>
+        </header>
+        <div class="modal__content">
+          <p class="modal__lead">This is a demo landing page for a fictitious product.</p>
+          <ul class="modal__list">
+            <li>The waitlist is for demonstration only; no service is being provided.</li>
+            <li>Your email stays local to your browser storage for this demo.</li>
+            <li>We make no guarantees about invites, delivery, or availability.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
