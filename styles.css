@@ -245,10 +245,65 @@ h3 {
 .waitlist__message {
   margin: 0;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 0.5rem;
   color: var(--muted);
   min-height: 1.5rem;
+}
+
+.waitlist__icon {
+  flex: 0 0 auto;
+  width: 1.35rem;
+  height: 1.35rem;
+  border-radius: 999px;
+  display: inline-grid;
+  place-items: center;
+  font-weight: 800;
+  line-height: 1;
+  border: 1px solid transparent;
+}
+
+.waitlist__message--success,
+.waitlist__message--warn,
+.waitlist__message--error,
+.waitlist__message--info {
+  padding: 0.65rem 0.75rem;
+  border-radius: 0.9rem;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.waitlist__message--success {
+  color: rgba(209, 250, 229, 0.95);
+  border-color: rgba(52, 211, 153, 0.35);
+  background: rgba(52, 211, 153, 0.12);
+}
+
+.waitlist__message--success .waitlist__icon {
+  border-color: rgba(52, 211, 153, 0.55);
+  background: rgba(52, 211, 153, 0.2);
+}
+
+.waitlist__message--warn {
+  color: rgba(254, 240, 138, 0.95);
+  border-color: rgba(250, 204, 21, 0.35);
+  background: rgba(250, 204, 21, 0.12);
+}
+
+.waitlist__message--warn .waitlist__icon {
+  border-color: rgba(250, 204, 21, 0.55);
+  background: rgba(250, 204, 21, 0.2);
+}
+
+.waitlist__message--error {
+  color: rgba(254, 202, 202, 0.95);
+  border-color: rgba(248, 113, 113, 0.35);
+  background: rgba(248, 113, 113, 0.12);
+}
+
+.waitlist__message--error .waitlist__icon {
+  border-color: rgba(248, 113, 113, 0.55);
+  background: rgba(248, 113, 113, 0.2);
 }
 
 .accordion__trigger {
@@ -314,4 +369,3 @@ h3 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
-

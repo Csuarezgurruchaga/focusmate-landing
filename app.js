@@ -65,9 +65,51 @@ function addEmailToWaitlist(rawEmail) {
   }
 }
 
-function setWaitlistMessage(messageEl, text) {
+function setWaitlistMessage(messageEl, { kind, text }) {
+  const iconEl = messageEl.querySelector(".waitlist__icon");
   const textEl = messageEl.querySelector(".waitlist__text");
+
+  messageEl.classList.remove(
+    "waitlist__message--success",
+    "waitlist__message--warn",
+    "waitlist__message--error",
+    "waitlist__message--info",
+  );
+
+  const kindToClass = {
+    success: "waitlist__message--success",
+    warn: "waitlist__message--warn",
+    error: "waitlist__message--error",
+    info: "waitlist__message--info",
+  };
+
+  const kindToIcon = {
+    success: "✓",
+    warn: "!",
+    error: "×",
+    info: "i",
+  };
+
+  const messageClass = kindToClass[kind] ?? kindToClass.info;
+  const icon = kindToIcon[kind] ?? kindToIcon.info;
+
+  messageEl.classList.add(messageClass);
+  if (iconEl) iconEl.textContent = icon;
   if (textEl) textEl.textContent = text;
+}
+
+function clearWaitlistMessage(messageEl) {
+  const iconEl = messageEl.querySelector(".waitlist__icon");
+  const textEl = messageEl.querySelector(".waitlist__text");
+
+  messageEl.classList.remove(
+    "waitlist__message--success",
+    "waitlist__message--warn",
+    "waitlist__message--error",
+    "waitlist__message--info",
+  );
+  if (iconEl) iconEl.textContent = "";
+  if (textEl) textEl.textContent = "";
 }
 
 function isObviouslyFakeEmail(normalizedEmail) {
@@ -98,35 +140,52 @@ function wireWaitlistForm(form) {
 
   if (!emailInput || !messageEl) return;
 
+  clearWaitlistMessage(messageEl);
+
   form.addEventListener("submit", (event) => {
     event.preventDefault();
 
     const normalizedEmail = normalizeEmail(emailInput.value);
 
     if (!emailInput.checkValidity()) {
-      setWaitlistMessage(messageEl, "Please enter a valid email address (e.g., you@domain.com).");
+      setWaitlistMessage(messageEl, {
+        kind: "error",
+        text: "Please enter a valid email address (e.g., you@domain.com).",
+      });
       return;
     }
 
     if (isObviouslyFakeEmail(normalizedEmail)) {
-      setWaitlistMessage(messageEl, "Please enter a real email address (e.g., you@domain.com).");
+      setWaitlistMessage(messageEl, {
+        kind: "error",
+        text: "Please enter a real email address (e.g., you@domain.com).",
+      });
       return;
     }
 
     const result = addEmailToWaitlist(normalizedEmail);
 
     if (result.kind === "added") {
-      setWaitlistMessage(messageEl, "You're in! We'll email you when early access opens.");
+      setWaitlistMessage(messageEl, {
+        kind: "success",
+        text: "You're in! We'll email you when early access opens.",
+      });
       emailInput.value = "";
       return;
     }
 
     if (result.kind === "duplicate") {
-      setWaitlistMessage(messageEl, "You're already on the waitlist. We'll keep you posted.");
+      setWaitlistMessage(messageEl, {
+        kind: "warn",
+        text: "You're already on the waitlist. We'll keep you posted.",
+      });
       return;
     }
 
-    setWaitlistMessage(messageEl, "You're in (for now). We couldn't save your email in this browser.");
+    setWaitlistMessage(messageEl, {
+      kind: "warn",
+      text: "You're in (for now). We couldn't save your email in this browser.",
+    });
   });
 }
 
