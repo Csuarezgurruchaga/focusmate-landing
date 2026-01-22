@@ -9,9 +9,10 @@ Last updated: 2026-01-22
 - T2.2 FAQ accordion (single-open, closed by default)
 - T2.3 Privacy/Terms modals (placeholder + bullets)
 - T3.1 a11y + content polish pass
+- T4.1 final smoke verification and tidy
 ## Current / Next
-- Next task: T4.1 Final smoke verification and tidy
-- Status: READY
+- Next task: (none)
+- Status: DONE
 ## Important constraints
 - Vanilla HTML/CSS/JS only.
 - Waitlist: `localStorage` → `sessionStorage`; if both fail, allow submit with “may not persist” message.
@@ -19,4 +20,5 @@ Last updated: 2026-01-22
 - Two waitlist forms exist (`#waitlist-form-hero` and `#waitlist-form`) and should share the same submit handler.
 - Skip link should move focus to main content (not just scroll), especially with fixed navbar.
 ## Safe resume instructions
-- Open `index.html` in Chromium and follow `docs/specs/focusmate-landing/ACCEPTANCE.md`.
+- Verify: open `index.html` in Chromium and follow `docs/specs/focusmate-landing/ACCEPTANCE.md` (happy path + edge cases).
+- Quick static check: `node -c app.js`.

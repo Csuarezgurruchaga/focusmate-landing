@@ -124,7 +124,7 @@
 - Stop points: safe to stop after Phase 0, after Phase 2, and after Phase 3
 
 ## Execution status
-- Status: IN_PROGRESS
-- Current task: T4.1
-- Completed tasks: T0.1, T1.1, T1.2, T1.3, T2.1, T2.2, T2.3, T3.1
+- Status: DONE
+- Current task: (none)
+- Completed tasks: T0.1, T1.1, T1.2, T1.3, T2.1, T2.2, T2.3, T3.1, T4.1
 - Last updated: 2026-01-22

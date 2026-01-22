@@ -6,6 +6,19 @@ function normalizeEmail(rawEmail) {
   return rawEmail.trim().toLowerCase();
 }
 
+function closestFromEventTarget(eventTarget, selector) {
+  if (eventTarget instanceof Element) {
+    return eventTarget.closest(selector);
+  }
+
+  const parent = eventTarget && eventTarget.parentElement;
+  if (parent instanceof Element) {
+    return parent.closest(selector);
+  }
+
+  return null;
+}
+
 function getAvailableStorage() {
   const testKey = "__focusmate_storage_test__";
 
@@ -249,7 +262,7 @@ function initModals() {
   };
 
   document.addEventListener("click", (event) => {
-    const trigger = event.target.closest("[data-modal-open]");
+    const trigger = closestFromEventTarget(event.target, "[data-modal-open]");
     if (trigger) {
       const name = trigger.getAttribute("data-modal-open");
       const modal = document.querySelector(`[data-modal="${name}"]`);
@@ -258,7 +271,7 @@ function initModals() {
       return;
     }
 
-    const closeTarget = event.target.closest("[data-modal-close]");
+    const closeTarget = closestFromEventTarget(event.target, "[data-modal-close]");
     if (closeTarget && activeModal && activeModal.contains(closeTarget)) {
       closeModal();
     }
@@ -349,7 +362,7 @@ function initInPageNavigation() {
     if (event.button !== 0) return;
     if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
 
-    const link = event.target.closest('a[href^="#"]');
+    const link = closestFromEventTarget(event.target, 'a[href^="#"]');
     if (!link) return;
 
     const href = link.getAttribute("href");
