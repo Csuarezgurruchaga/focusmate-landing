@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en" id="top">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>FocusMate — Stay focused, finish what matters</title>
+    <meta
+      name="description"
+      content="FocusMate helps you plan distraction-free sessions, stay consistent, and ship meaningful work. Join the waitlist for early access."
+    />
+
+    <meta property="og:title" content="FocusMate — Stay focused, finish what matters" />
+    <meta
+      property="og:description"
+      content="Plan distraction-free sessions, stay consistent, and ship meaningful work. Join the waitlist for early access."
+    />
+    <meta property="og:type" content="website" />
+
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="./app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <nav class="nav" aria-label="Primary">
+        <a class="nav__logo" href="#top">FocusMate</a>
+
+        <div class="nav__links">
+          <a class="nav__link" href="#features">Features</a>
+          <a class="nav__link" href="#how-it-works">How it works</a>
+          <a class="nav__link" href="#pricing">Pricing</a>
+          <a class="nav__link" href="#faq">FAQ</a>
+        </div>
+
+        <a class="nav__cta" href="#waitlist">Get early access</a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section class="section section--hero" id="hero" aria-label="Hero">
+        <div class="container">
+          <p class="eyebrow">Focus, made simple.</p>
+          <h1>Stay focused. Finish what matters.</h1>
+          <p class="lead">
+            FocusMate helps you plan distraction-free sessions, stay consistent, and build
+            momentum—one focused block at a time.
+          </p>
+
+          <form class="waitlist" id="waitlist-form-hero" novalidate>
+            <label class="sr-only" for="email-hero">Email</label>
+            <input
+              id="email-hero"
+              name="email"
+              type="email"
+              inputmode="email"
+              autocomplete="email"
+              placeholder="you@company.com"
+              required
+            />
+            <button type="submit">Join waitlist</button>
+
+            <p class="waitlist__message" id="waitlist-message-hero" aria-live="polite">
+              <span class="waitlist__icon" aria-hidden="true"></span>
+              <span class="waitlist__text"> </span>
+            </p>
+          </form>
+        </div>
+      </section>
+
+      <section class="section" id="features" aria-label="Features">
+        <div class="container">
+          <h2>Features</h2>
+          <div class="grid-3">
+            <article class="card">
+              <h3>Distraction-free sessions</h3>
+              <p>One clear goal, one timed block. Keep your next action visible and your noise off.</p>
+            </article>
+            <article class="card">
+              <h3>Smart planning</h3>
+              <p>Turn vague to-dos into scheduled focus blocks you can actually complete.</p>
+            </article>
+            <article class="card">
+              <h3>Progress you can feel</h3>
+              <p>See streaks and small wins that make consistency effortless.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="how-it-works" aria-label="How it works">
+        <div class="container">
+          <h2>How it works</h2>
+          <ol class="steps">
+            <li class="steps__item">
+              <h3>Set your focus goal</h3>
+              <p>Pick one outcome for the next session—small enough to ship, big enough to matter.</p>
+            </li>
+            <li class="steps__item">
+              <h3>Start a timed session</h3>
+              <p>Lock in a block, remove distractions, and work on exactly one thing.</p>
+            </li>
+            <li class="steps__item">
+              <h3>Review and repeat</h3>
+              <p>Capture what worked, adjust the next session, and build momentum daily.</p>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="section" id="pricing" aria-label="Pricing">
+        <div class="container">
+          <h2>Pricing</h2>
+          <div class="grid-2">
+            <article class="card">
+              <h3>Free</h3>
+              <p class="price">$0<span class="price__period">/mo</span></p>
+              <ul class="list">
+                <li>Unlimited focus sessions</li>
+                <li>Basic streak tracking</li>
+                <li>Simple session notes</li>
+              </ul>
+              <a class="button" href="#waitlist">Join waitlist</a>
+            </article>
+
+            <article class="card card--highlight">
+              <h3>Pro</h3>
+              <p class="price">$8<span class="price__period">/mo</span></p>
+              <ul class="list">
+                <li>Advanced planning workflows</li>
+                <li>Deep insights and trends</li>
+                <li>Priority feature access</li>
+              </ul>
+              <a class="button" href="#waitlist">Join waitlist</a>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="waitlist" aria-label="Waitlist">
+        <div class="container">
+          <h2>Get early access</h2>
+          <p class="lead">
+            Be the first to try FocusMate. We’ll email you when we open invites.
+          </p>
+
+          <form class="waitlist" id="waitlist-form" novalidate>
+            <label class="sr-only" for="email">Email</label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              inputmode="email"
+              autocomplete="email"
+              placeholder="you@company.com"
+              required
+            />
+            <button type="submit">Join waitlist</button>
+
+            <p class="waitlist__message" id="waitlist-message" aria-live="polite">
+              <span class="waitlist__icon" aria-hidden="true"></span>
+              <span class="waitlist__text"> </span>
+            </p>
+          </form>
+        </div>
+      </section>
+
+      <section class="section" id="faq" aria-label="FAQ">
+        <div class="container">
+          <h2>FAQ</h2>
+
+          <div class="accordion" data-accordion>
+            <article class="accordion__item">
+              <h3 class="accordion__heading">
+                <button
+                  class="accordion__trigger"
+                  id="faq-trigger-1"
+                  type="button"
+                  aria-expanded="false"
+                  aria-controls="faq-panel-1"
+                >
+                  What is FocusMate?
+                </button>
+              </h3>
+              <div class="accordion__panel" id="faq-panel-1" role="region" aria-labelledby="faq-trigger-1" hidden>
+                <p>FocusMate is a simple way to plan and complete distraction-free focus sessions.</p>
+              </div>
+            </article>
+
+            <article class="accordion__item">
+              <h3 class="accordion__heading">
+                <button
+                  class="accordion__trigger"
+                  id="faq-trigger-2"
+                  type="button"
+                  aria-expanded="false"
+                  aria-controls="faq-panel-2"
+                >
+                  Do you need an account?
+                </button>
+              </h3>
+              <div class="accordion__panel" id="faq-panel-2" role="region" aria-labelledby="faq-trigger-2" hidden>
+                <p>No account is required yet. Join the waitlist and we’ll reach out when invites open.</p>
+              </div>
+            </article>
+
+            <article class="accordion__item">
+              <h3 class="accordion__heading">
+                <button
+                  class="accordion__trigger"
+                  id="faq-trigger-3"
+                  type="button"
+                  aria-expanded="false"
+                  aria-controls="faq-panel-3"
+                >
+                  Is this a real product?
+                </button>
+              </h3>
+              <div class="accordion__panel" id="faq-panel-3" role="region" aria-labelledby="faq-trigger-3" hidden>
+                <p>This is a fictional product used for a demo. Your email is stored only in your browser.</p>
+              </div>
+            </article>
+
+            <article class="accordion__item">
+              <h3 class="accordion__heading">
+                <button
+                  class="accordion__trigger"
+                  id="faq-trigger-4"
+                  type="button"
+                  aria-expanded="false"
+                  aria-controls="faq-panel-4"
+                >
+                  When will early access open?
+                </button>
+              </h3>
+              <div class="accordion__panel" id="faq-panel-4" role="region" aria-labelledby="faq-trigger-4" hidden>
+                <p>We’ll start inviting people in batches. Join the waitlist to be notified first.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer" aria-label="Footer">
+      <div class="container footer">
+        <p class="footer__brand">FocusMate</p>
+        <div class="footer__links">
+          <button class="footer__link" type="button" data-modal-open="privacy">Privacy</button>
+          <button class="footer__link" type="button" data-modal-open="terms">Terms</button>
+          <a class="footer__link" href="mailto:hello@focusmate.app">Contact</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
+
