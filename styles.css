@@ -124,6 +124,11 @@ a:hover {
   color: var(--muted);
 }
 
+.nav__link:hover,
+.nav__link:focus-visible {
+  color: var(--fg);
+}
+
 .nav__cta {
   display: inline-flex;
   align-items: center;
@@ -412,6 +417,12 @@ h3 {
   padding: 0;
   font: inherit;
   cursor: pointer;
+}
+
+.footer__link:hover,
+.footer__link:focus-visible {
+  color: var(--fg);
+  text-decoration: underline;
 }
 
 html.is-modal-open,

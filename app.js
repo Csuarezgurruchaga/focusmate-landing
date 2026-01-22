@@ -324,6 +324,19 @@ function initInPageNavigation() {
     { passive: true },
   );
 
+  const focusSkipTarget = (target) => {
+    if (!(target instanceof HTMLElement)) return;
+
+    const heading = target.querySelector("h1, h2");
+    if (heading instanceof HTMLElement) {
+      heading.setAttribute("tabindex", "-1");
+      heading.focus({ preventScroll: true });
+      return;
+    }
+
+    target.focus({ preventScroll: true });
+  };
+
   const scrollToTarget = (target, behavior) => {
     const headerHeight = getHeaderHeight();
     const targetTop = target.getBoundingClientRect().top + window.scrollY;
@@ -338,7 +351,6 @@ function initInPageNavigation() {
 
     const link = event.target.closest('a[href^="#"]');
     if (!link) return;
-    if (link.classList.contains("skip-link")) return;
 
     const href = link.getAttribute("href");
     if (!href || href === "#" || href === "#0") return;
@@ -348,7 +360,8 @@ function initInPageNavigation() {
 
     event.preventDefault();
 
-    const behavior = prefersReducedMotion() ? "auto" : "smooth";
+    const isSkipLink = link.classList.contains("skip-link");
+    const behavior = isSkipLink ? "auto" : prefersReducedMotion() ? "auto" : "smooth";
     scrollToTarget(target, behavior);
 
     if (history.pushState) {
@@ -356,13 +369,22 @@ function initInPageNavigation() {
     } else {
       window.location.hash = href;
     }
+
+    if (isSkipLink) {
+      focusSkipTarget(target);
+    }
   });
 
   if (window.location.hash && window.location.hash !== "#") {
     const target = document.querySelector(window.location.hash);
     if (target) {
       window.requestAnimationFrame(() => {
-        window.requestAnimationFrame(() => scrollToTarget(target, "auto"));
+        window.requestAnimationFrame(() => {
+          scrollToTarget(target, "auto");
+          if (window.location.hash === "#main") {
+            focusSkipTarget(target);
+          }
+        });
       });
     }
   }
