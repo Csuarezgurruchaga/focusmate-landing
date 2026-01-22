@@ -9,9 +9,10 @@ Last updated: 2026-01-22
 - T1.3 inline status messaging with icon
 - T2.1 fixed navbar + smooth scrolling (offset + reduced motion)
 - T2.2 FAQ accordion (single-open, closed by default)
+- T2.3 Privacy/Terms modals (placeholder + bullets)
 
 ## Current / Next
-- Next task: T2.3 Implement Privacy/Terms modals (placeholder + bullets)
+- Next task: T3.1 Accessibility and content polish pass
 - Status: READY
 
 ## Notes
